@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Skill(models.Model):
+    name = models.CharField(max_length=255, unique=True)
 
     class Meta:
         db_table = 'skills_skills'
