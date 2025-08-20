@@ -1,3 +1,15 @@
+# pyright: reportMissingTypeArgument=false
+
 from django.contrib import admin
 
-# Register your models here.
+from .models import Gender, User
+
+
+@admin.register(Gender)
+class GenderAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    pass
