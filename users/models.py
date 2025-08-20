@@ -16,31 +16,41 @@ class User(AbstractUser):
         db_table = 'users_users'
 
 
-class PersonalDetails(models.Model):
+class Gender(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'users_genders'
+
+
+class Profile(models.Model):
     user = models.OneToOneField(
         to=get_user_model(),
         on_delete=models.CASCADE,
         related_name='personal_details',
     )
-    gender: models.ForeignKey['Gender'] = models.ForeignKey(
-        to='Gender',
+    gender = models.ForeignKey(
+        to=Gender,
         on_delete=models.PROTECT,
         related_name='+',
     )
     grade: models.ForeignKey[Grade] = models.ForeignKey(
         to=Grade,
         on_delete=models.PROTECT,
-        related_name='personal_details_set',
+        related_name='+',
     )
     profession: models.ForeignKey[Profession] = models.ForeignKey(
         to=Profession,
         on_delete=models.PROTECT,
-        related_name='personal_details_set',
+        related_name='+',
     )
     unit: models.ForeignKey[Unit] = models.ForeignKey(
         to=Unit,
         on_delete=models.PROTECT,
-        related_name='personal_details_set',
+        related_name='+',
     )
     years_as_analyst = models.PositiveSmallIntegerField()
     years_at_current_grade = models.PositiveSmallIntegerField()
@@ -50,13 +60,3 @@ class PersonalDetails(models.Model):
 
     class Meta:
         db_table = 'users_personal_details'
-
-
-class Gender(models.Model):
-    name = models.CharField(max_length=255, unique=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        db_table = 'users_genders'
