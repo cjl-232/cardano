@@ -28,6 +28,12 @@ class Category(models.Model):
         self.full_clean()
         super().save(*args, **kwargs)
 
+    def __str__(self):
+        if self.parent is not None:
+            return f'{self.parent.name} -> {self.name}'
+        else:
+            return self.name
+
     class Meta:
         db_table = 'skills_categories'
         constraints = [
