@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block title %}Your Skills{% endblock %}
+{% block content %}
+{% for category in top_categories %}
+{% include 'users/skills_category.html' with category=category only %}
+{% endfor %}
+{% endblock %}

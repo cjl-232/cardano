@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Your Profile{% endblock %}
+{% block content %}
+<a href="{% url 'users:edit_profile' %}">Edit</a>
+<table>
+  <caption>
+    Your Profile
+  </caption>
+  <tr>
+    <th scope="row">Gender</th>
+    <td>{{ profile.gender.name }}</td>
+  </tr>
+  <tr>
+    <th scope="row">Grade</th>
+    <td>{{ profile.grade.name }}</td>
+  </tr>
+  <tr>
+    <th scope="row">Profession</th>
+    <td>{{ profile.profession.name }}</td>
+  </tr>
+  <tr>
+    <th scope="row">Unit</th>
+    <td>{{ profile.unit.name }}</td>
+  </tr>
+  <tr>
+    <th scope="row">Years as an Analyst</th>
+    <td>{{ profile.years_as_analyst }}</td>
+  </tr>
+  <tr>
+    <th scope="row">Years at Current Grade</th>
+    <td>{{ profile.years_at_current_grade }}</td>
+  </tr>
+</table>
+{% endblock %}

@@ -1,0 +1,151 @@
+body {
+  font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+  background-color: #f4f6f8;
+  color: #222;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+.top-navbar {
+  background-color: #003366;
+  padding: 0.75em 1.5em;
+  border-bottom: 4px solid #0055a5;
+}
+
+.top-navbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.top-navbar li {
+  margin-right: 2em;
+}
+
+.top-navbar a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.top-navbar a:hover {
+  text-decoration: underline;
+}
+
+p {
+  margin: 1.5em;
+  font-size: 0.95em;
+  color: #444;
+}
+
+.content {
+  background: #ffffff;
+  margin: 1.5em;
+  padding: 2em;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+}
+
+.content a {
+  display: inline-block;
+  margin-bottom: 1.25em;
+  padding: 0.5em 1em;
+  background: #0055a5;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+.content a:hover {
+  background: #003f7f;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1em;
+  font-size: 0.95em;
+}
+
+caption {
+  caption-side: top;
+  font-size: 1.15em;
+  font-weight: 600;
+  margin-bottom: 0.75em;
+  text-align: left;
+  color: #222;
+}
+
+th, td {
+  padding: 0.75em 1em;
+  border-bottom: 1px solid #e1e4e8;
+}
+
+th {
+  text-align: left;
+  background: #f1f4f7;
+  width: 25%;
+  font-weight: 600;
+}
+
+td {
+  background: #ffffff;
+}
+
+/* Details tree styling */
+details {
+  position: relative;
+  padding-left: 1.5em;
+  margin: 0.75em 0;
+}
+
+details::before {
+  content: '';
+  position: absolute;
+  top: 0.75em;
+  left: 0.5em;
+  width: 0;
+  height: 100%;
+  border-left: 1px solid #cfd8e0;
+}
+
+details:last-child::before {
+  height: 0.75em; /* stops the line at the last item */
+}
+
+summary {
+  cursor: pointer;
+  font-weight: 600;
+  position: relative;
+  padding: 0.25em 0;
+}
+
+summary::marker {
+  font-size: 1.25em;
+  color: #0055a5;
+}
+
+/* Nested details indentation and connecting lines */
+details details {
+  margin-left: 1.5em;
+}
+
+details details::before {
+  left: 0.5em; /* aligns nested lines */
+  border-color: #e1e4e8;
+}
+
+/* Optional: background highlight for open details */
+details[open] {
+  background-color: #f9fbfc;
+  border-radius: 4px;
+  padding: 0.25em 0.25em 0.25em 1.5em;
+}
+
+/* Paragraph styling inside details */
+details p {
+  margin: 0.25em 0 0.25em 1em;
+}

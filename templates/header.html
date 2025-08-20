@@ -1,0 +1,9 @@
+{% load static %}
+<nav class="top-navbar">
+  <ul>
+    {% if user.is_authenticated %}
+    <li><a href="{% url 'users:view_profile' %}">Your Profile</a></li>
+    <li><a href="{% url 'users:skills' %}">Your Skills</a></li>
+    {% endif %}
+  </ul>
+</nav>

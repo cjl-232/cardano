@@ -1,0 +1,9 @@
+<details>
+  <summary>{{ category.name }}</summary>
+  {% for subcategory in category.children.all %}
+  {% include 'users/skills_category.html' with category=subcategory only %}
+  {% endfor %}
+  {% for skill in category.skills.all %}
+  <p>{{ skill.name }}</p>
+  {% endfor %}
+</details>

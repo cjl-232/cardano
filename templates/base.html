@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Untitled Page{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    {% block externals %}
+    {% endblock %}
+  </head>
+  <body>
+    {% include 'header.html' %}
+    {% if user.is_authenticated %}
+    <p>Logged in as {{ user }}.</p>
+    {% else %}
+    <p>Anonymous.</p>
+    {% endif %}
+    <div class="content">
+      {% block content %}
+      <p>Test Content</p>
+      {% endblock %}
+    </div>
+  </body>
+</html>

@@ -9,7 +9,7 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
-    personal_details: 'PersonalDetails | None'
+    profile: 'Profile'
     email = models.EmailField(unique=True)
 
     class Meta:
@@ -30,7 +30,7 @@ class Profile(models.Model):
     user = models.OneToOneField(
         to=get_user_model(),
         on_delete=models.CASCADE,
-        related_name='personal_details',
+        related_name='profile',
     )
     gender = models.ForeignKey(
         to=Gender,
@@ -59,4 +59,4 @@ class Profile(models.Model):
         return f'Details for {self.user.email}'
 
     class Meta:
-        db_table = 'users_personal_details'
+        db_table = 'users_profiles'
