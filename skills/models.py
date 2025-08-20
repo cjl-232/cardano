@@ -45,14 +45,24 @@ class Category(models.Model):
 
 
 class Skill(models.Model):
-    name = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=255)
     category = models.ForeignKey(
         to=Category,
         on_delete=models.PROTECT,
+        related_name='skills',
     )
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         db_table = 'skills_skills'
+        constraints = [
+            models.UniqueConstraint(
+                fields=['name', 'category'],
+                name='skills_skills_AK01',
+            ),
+        ]
 
 
 class SkillEntry(models.Model):
