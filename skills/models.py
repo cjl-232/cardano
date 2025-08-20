@@ -73,6 +73,7 @@ class SkillEntry(models.Model):
         MODERATE_EXPERIENCE = 3, _('Moderate experience')
         GOOD_EXPERIENCE = 4, _('Good experience')
 
+    id: models.BigAutoField
     user = models.ForeignKey(
         to=get_user_model(),
         on_delete=models.CASCADE,
@@ -86,6 +87,9 @@ class SkillEntry(models.Model):
     proficiency = models.SmallIntegerField(choices=Proficiency.choices)
     used_in_last_six_months = models.BooleanField()
     last_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'Entry #{self.id}'
 
     class Meta:
         db_table = 'skills_skill_entries'

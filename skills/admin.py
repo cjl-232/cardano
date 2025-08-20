@@ -12,7 +12,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Skill)
 class SkillAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['id', 'name', '__str__']
 
 
 @admin.register(SkillEntry)
