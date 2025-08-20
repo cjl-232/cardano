@@ -30,7 +30,7 @@ class Category(models.Model):
 
     def __str__(self):
         if self.parent is not None:
-            return f'{self.parent.name} -> {self.name}'
+            return f'{str(self.parent)} -> {self.name}'
         else:
             return self.name
 
@@ -53,7 +53,7 @@ class Skill(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return f'{str(self.category)}: {self.name}'
 
     class Meta:
         db_table = 'skills_skills'
