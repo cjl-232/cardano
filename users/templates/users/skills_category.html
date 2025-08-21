@@ -1,5 +1,35 @@
 <details>
   <summary>{{ category.name }}</summary>
+  {% if category.skills.all %}
+  <ul>
+    {% for skill in category.skills.all %}
+    <li>
+      {{ skill.name }}
+      <input type="checkbox" name="skill_{{ skill.id }}_a">
+      <input type="checkbox" name="skill_{{ skill.id }}_b">
+      <input type="number" name="skill_{{ skill.id }}_qty" min="0">
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% for subcategory in category.children.all %}
+  {% include 'users/skills_category.html' with category=subcategory only %}
+  {% endfor %}
+</details>
+{% comment %}
+<div class="branch">
+  <span class="label">{{ category.name }}</span>
+  <div class="children">
+    {% for subcategory in category.children.all %}
+    {% include 'users/skills_category.html' with category=subcategory only %}
+    {% endfor %}
+    {% for skill in category.skills.all %}
+    <div class="leaf">{{ skill.name }}</div>
+    {% endfor %}
+  </div>
+</div>
+<details>
+  <summary>{{ category.name }}</summary>
   {% for subcategory in category.children.all %}
   {% include 'users/skills_category.html' with category=subcategory only %}
   {% endfor %}
@@ -7,3 +37,4 @@
   <p>{{ skill.name }}</p>
   {% endfor %}
 </details>
+{% endcomment %}

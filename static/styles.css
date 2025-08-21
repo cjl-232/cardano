@@ -95,57 +95,135 @@ td {
   background: #ffffff;
 }
 
-/* Details tree styling */
-details {
+/* Tree container */
+details, details p {
   position: relative;
+  margin: 0.25em 0;
   padding-left: 1.5em;
-  margin: 0.75em 0;
 }
 
-details::before {
+/* Vertical lines for all children */
+details::before,
+details p::before {
   content: '';
   position: absolute;
-  top: 0.75em;
+  top: 0;
   left: 0.5em;
-  width: 0;
   height: 100%;
   border-left: 1px solid #cfd8e0;
 }
 
-details:last-child::before {
-  height: 0.75em; /* stops the line at the last item */
+/* Horizontal connectors */
+summary::before,
+details p::after {
+  content: '';
+  position: absolute;
+  top: 0.9em; /* aligns with text baseline */
+  left: 0.5em;
+  width: 1em;
+  border-top: 1px solid #cfd8e0;
 }
 
+/* Remove connector below last child */
+details > :last-child::before {
+  height: 0.9em;
+}
+
+/* Summary styling */
 summary {
   cursor: pointer;
   font-weight: 600;
-  position: relative;
-  padding: 0.25em 0;
+  padding-left: 0.5em;
 }
 
 summary::marker {
-  font-size: 1.25em;
+  font-size: 1.1em;
   color: #0055a5;
 }
 
-/* Nested details indentation and connecting lines */
+/* Nested indentation */
 details details {
   margin-left: 1.5em;
 }
 
 details details::before {
-  left: 0.5em; /* aligns nested lines */
   border-color: #e1e4e8;
 }
 
-/* Optional: background highlight for open details */
-details[open] {
-  background-color: #f9fbfc;
-  border-radius: 4px;
-  padding: 0.25em 0.25em 0.25em 1.5em;
+/* Leaf nodes */
+details p {
+  margin: 0.25em 0;
+  padding-left: 1.5em;
+  color: #333;
+}
+/* Form container styling */
+form {
+  display: flex;
+  flex-direction: column;
 }
 
-/* Paragraph styling inside details */
-details p {
-  margin: 0.25em 0 0.25em 1em;
+form div {
+  margin-bottom: 1.25em;
+}
+
+/* Labels */
+form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5em;
+  color: #222;
+}
+
+/* Select and input fields */
+form select,
+form input[type="number"],
+form input[type="text"],
+form input[type="email"] {
+  width: 100%;
+  padding: 0.5em 0.75em;
+  border: 1px solid #cfd8e0;
+  border-radius: 4px;
+  font-size: 0.95em;
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+
+form select:focus,
+form input[type="number"]:focus,
+form input[type="text"]:focus,
+form input[type="email"]:focus {
+  outline: none;
+  border-color: #0055a5;
+  box-shadow: 0 0 0 2px rgba(0, 85, 165, 0.2);
+}
+
+/* Submit button */
+form input[type="submit"] {
+  padding: 0.6em 1.2em;
+  background-color: #0055a5;
+  color: #ffffff;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: fit-content;
+}
+
+form input[type="submit"]:hover {
+  background-color: #003f7f;
+}
+
+/* Responsive adjustment */
+@media (max-width: 480px) {
+  form select,
+  form input[type="number"],
+  form input[type="text"],
+  form input[type="email"] {
+    width: 100%;
+  }
+
+  form input[type="submit"] {
+    width: 100%;
+    text-align: center;
+  }
 }
