@@ -11,6 +11,7 @@ class User(AbstractUser):
 
     profile: 'Profile'
     email = models.EmailField(unique=True)
+    username = None
 
     class Meta:
         db_table = 'users_users'
