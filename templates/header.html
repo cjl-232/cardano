@@ -3,7 +3,16 @@
   <ul>
     {% if user.is_authenticated %}
     <li><a href="{% url 'users:view_profile' %}">Your Profile</a></li>
-    <li><a href="{% url 'users:skills_list' %}">Your Skills</a></li>
+    <li><a href="{% url 'skills:overview' %}">Your Skills</a></li>
     {% endif %}
   </ul>
+  {% if user.is_authenticated %}
+  <div class="login-info">
+    <p>Logged in as {{ user.email }}</p>
+    <form method="POST" action="{% url 'users:logout' %}">
+      {% csrf_token %}
+      <input type="submit" value="Logout">
+    </form>
+  </div>
+  {% endif %}
 </nav>

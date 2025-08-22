@@ -10,11 +10,6 @@
   </head>
   <body>
     {% include 'header.html' %}
-    {% if user.is_authenticated %}
-    <p>Logged in as {{ user }}.</p>
-    {% else %}
-    <p>Anonymous.</p>
-    {% endif %}
     <div class="content">
       {% block content %}
       <p>Test Content</p>

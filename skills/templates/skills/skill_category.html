@@ -1,5 +1,5 @@
 {% if node.has_skills %}
-<details>
+<details open>
   <summary>{{ node.name }}</summary>  
   {% for subnode in node.subnodes %}
   {% include 'skills/skill_category.html' with node=subnode %}

@@ -12,10 +12,10 @@ class SkillEntryForm(forms.Form):
         choices=SkillEntry.Proficiency.choices,
         widget=forms.RadioSelect,
     )
-    used_in_last_six_months = forms.BooleanField()
+    used_in_last_six_months = forms.BooleanField(required=False)
 
     def clean_proficiency(self):
-        data = self.cleaned_data['proficiency']
+        data = int(self.cleaned_data['proficiency'])
         if data not in SkillEntry.Proficiency.values:
             raise ValidationError('Invalid proficiency value.')
         return data

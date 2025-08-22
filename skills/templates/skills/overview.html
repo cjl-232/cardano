@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Your Skills{% endblock %}
 {% block content %}
-<form method="POST" action="{% url 'skills:overview' %}">
+<form method="POST" action="{% url 'skills:overview' %}" class="formset">
   {% csrf_token %}
   {{ formset.management_form }}
   {% for node in tree.subnodes %}

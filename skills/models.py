@@ -1,5 +1,6 @@
 import functools
 
+from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Any
 
@@ -8,6 +9,38 @@ from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
+
+@dataclass
+class _SkillTreeNode:
+    name: str
+    skills: models.QuerySet['Skill'] | list['Skill']
+    has_skills: bool
+    subnodes: list['_SkillTreeNode']
+    entry_forms: dict[str, forms.Form]
+
+    def add_forms(self, mapping: Mapping[int, forms.Form]):
+        for skill in self.skills:
+            self.entry_forms[skill.name] = mapping[skill.id]
+        for subnode in self.subnodes:
+            subnode.add_forms(mapping)
+
+
+@functools.cache
+def _make_tree_node(category: 'Category') -> _SkillTreeNode:
+    node = _SkillTreeNode(
+        name=category.name,
+        skills=category.skills.order_by('name'),
+        has_skills=category.skills.exists(),
+        subnodes=[],
+        entry_forms={},
+    )
+    for subcategory in category.children.order_by('name'):
+        subnode = _make_tree_node(subcategory)
+        if subnode.has_skills:
+            node.has_skills = True
+            node.subnodes.append(subnode)
+    return node
 
 
 class Category(models.Model):
@@ -23,42 +56,11 @@ class Category(models.Model):
         null=True,
     )
 
-    @dataclass
-    class _SkillTreeNode:
-        name: str
-        skills: models.QuerySet['Skill'] | list['Skill']
-        has_skills: bool
-        subnodes: list['Category._SkillTreeNode']
-        entry_forms: dict[str, forms.Form]
-
-        def add_forms(self, mapping: dict[int, forms.Form]):
-            for skill in self.skills:
-                self.entry_forms[skill.name] = mapping[skill.id]
-            for subnode in self.subnodes:
-                subnode.add_forms(mapping)
-
-    @staticmethod
-    @functools.cache
-    def _make_tree_node(category: 'Category') -> _SkillTreeNode:
-        node = Category._SkillTreeNode(
-            name=category.name,
-            skills=category.skills.order_by('name'),
-            has_skills=category.skills.exists(),
-            subnodes=[],
-            entry_forms={},
-        )
-        for subcategory in category.children.order_by('name'):
-            subnode = Category._make_tree_node(subcategory)
-            if subnode.has_skills:
-                node.has_skills = True
-                node.subnodes.append(subnode)
-        return node
-
     @classmethod
-    def make_tree(cls, mapping: dict[int, forms.Form]) -> _SkillTreeNode:
+    def make_tree(cls, mapping: Mapping[int, forms.Form]) -> _SkillTreeNode:
         top_level = cls.objects.filter(parent=None).order_by('name')
-        top_nodes = [cls._make_tree_node(category) for category in top_level]
-        root = Category._SkillTreeNode(
+        top_nodes = [_make_tree_node(category) for category in top_level]
+        root = _SkillTreeNode(
             name='Root',
             skills=[],
             has_skills=any([node.has_skills for node in top_nodes]),
@@ -76,12 +78,12 @@ class Category(models.Model):
             ancestor = ancestor.parent
 
     def save(self, *args: Any, **kwargs: Any):
-        self._make_tree_node.cache_clear()
         self.full_clean()
+        _make_tree_node.cache_clear()
         return super().save(*args, **kwargs)
 
     def delete(self, *args: Any, **kwargs: Any):
-        self._make_tree_node.cache_clear()
+        _make_tree_node.cache_clear()
         return super().delete(*args, **kwargs)
 
     def __str__(self):
@@ -108,6 +110,10 @@ class Skill(models.Model):
         on_delete=models.PROTECT,
         related_name='skills',
     )
+
+    def save(self, *args: Any, **kwargs: Any):
+        _make_tree_node.cache_clear()
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return f'{str(self.category)}: {self.name}'
@@ -158,7 +164,3 @@ class SkillEntry(models.Model):
                 name='skills_skill_entries_AK01',
             ),
         ]
-
-# Create your models here.
-
-# Nested categories? Seems reasonable... then in the UI, nested dropdowns

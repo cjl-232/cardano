@@ -1,0 +1,123 @@
+/* General layout */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.4;
+  margin: 1em;
+}
+
+.content form {
+  /*max-width: 800px;*/
+  margin: 0 auto;
+}
+
+/* Top navbar */
+.top-navbar {
+  background: #333;
+  padding: 0.5em;
+}
+.top-navbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1em;
+}
+.top-navbar a {
+  color: white;
+  text-decoration: none;
+}
+.top-navbar a:hover {
+  text-decoration: underline;
+}
+
+/* Nested categories */
+details {
+  margin: 0.5em 0;
+  padding: 0.5em;
+  border-left: 3px solid #ccc;
+  background: #fdfdfd;
+}
+
+/* Alternating background + indentation */
+details {
+  background: #fdfdfd;
+  margin-left: 0.5em;
+}
+details details {
+  background: #f7f9fc;
+  margin-left: 1.5em;
+}
+details details details {
+  background: #eef3f9;
+  margin-left: 2.5em;
+}
+details details details details {
+  background: #e7eef7;
+  margin-left: 3.5em;
+}
+
+/* Summary styling */
+details summary {
+  cursor: pointer;
+  font-weight: bold;
+  padding: 0.2em;
+}
+
+details[open] {
+  border-left-color: #666;
+}
+
+/* Skill sections */
+ul {
+  list-style: none;
+  padding-left: 1em;
+  margin: 0.5em 0;
+}
+
+li section {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.8em;
+  margin: 0.5em 0;
+  background: #fff;
+}
+
+li section h2 {
+  margin: 0 0 0.5em 0;
+  font-size: 1.1em;
+  color: #333;
+}
+
+/* Fieldsets for proficiency */
+fieldset {
+  border: 1px solid #ccc;
+  padding: 0.5em;
+  margin: 0.5em 0;
+}
+
+legend {
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+/* Radio and checkbox labels */
+label {
+  display: block;
+  margin: 0.2em 0;
+}
+
+/* Submit button */
+input[type="submit"] {
+  margin-top: 1em;
+  padding: 0.5em 1.2em;
+  background: #4a7ae5;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background: #345ac4;
+}
