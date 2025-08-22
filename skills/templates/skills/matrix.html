@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Matrix{% endblock %}
+{% block content %}
+<table class="skills-matrix">
+  <caption>
+    All skill entries, ordered by date.
+  </caption>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Grade</th>
+      <th>Unit</th>
+      <th>Profession</th>
+      <th>Gender</th>
+      <th>Skill</th>
+      <th>Proficiency</th>
+      <th>Used In The Last Six Months</th>
+      <th>Last Modified</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for entry in entries %}
+    <tr>
+      <td>{{ entry.user.email }}</td>
+      <td>{{ entry.user.profile.grade }}</td>
+      <td>{{ entry.user.profile.unit }}</td>
+      <td>{{ entry.user.profile.profession }}</td>
+      <td>{{ entry.user.profile.gender }}</td>
+      <td>{{ entry.skill }}</td>
+      <td>{{ entry.proficiency }}</td>
+      <td>{{ entry.used_in_last_six_months }}</td>
+      <td>{{ entry.last_modified }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

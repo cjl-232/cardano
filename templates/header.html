@@ -1,12 +1,20 @@
 {% load static %}
 <nav class="top-navbar">
   <ul>
+    <li><a href="{% url 'skills:matrix' %}">Matrix</a></li>
     {% if user.is_authenticated %}
     <li><a href="{% url 'users:view_profile' %}">Your Profile</a></li>
     <li><a href="{% url 'skills:overview' %}">Your Skills</a></li>
     {% endif %}
   </ul>
-  {% if user.is_authenticated %}
+  {% if not user.is_authenticated %}
+  <div class="login-info">
+    <form method="GET" action="{% url 'users:login' %}">
+      {% csrf_token %}
+      <input type="submit" value="Login">
+    </form>
+  </div>
+  {% else %}
   <div class="login-info">
     <p>Logged in as {{ user.email }}</p>
     <form method="POST" action="{% url 'users:logout' %}">

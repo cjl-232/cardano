@@ -1,6 +1,6 @@
 from typing import Any
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, login_not_required
 from django.http import HttpRequest, HttpResponse, HttpResponseNotAllowed
 from django.shortcuts import redirect, render
 
@@ -62,3 +62,8 @@ def overview(request: HttpRequest) -> HttpResponse:
         'tree': tree,
     }
     return render(request, 'skills/overview.html', context)
+
+@login_not_required
+def matrix(request: HttpRequest) -> HttpResponse:
+    entries = SkillEntry.objects.order_by('-last_modified')
+    return render(request, 'skills/matrix.html', {'entries': entries})

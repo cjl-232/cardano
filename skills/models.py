@@ -116,7 +116,7 @@ class Skill(models.Model):
         return super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{str(self.category)}: {self.name}'
+        return f'{str(self.category)} -> {self.name}'
 
     class Meta:
         db_table = 'skills_skills'
