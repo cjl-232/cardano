@@ -1,21 +1,38 @@
+{% if category.id in valid_category_ids %}
 <details>
   <summary>{{ category.name }}</summary>
+  {% for subcategory in category.children.all|dictsort:'name' %}
+  {% include 'users/skills_category.html' with category=subcategory %}
+  {% endfor %}
   {% if category.skills.all %}
   <ul>
     {% for skill in category.skills.all %}
+    {% if skill.id in valid_skill_ids %}
     <li>
-      {{ skill.name }}
-      <input type="checkbox" name="skill_{{ skill.id }}_a">
-      <input type="checkbox" name="skill_{{ skill.id }}_b">
-      <input type="number" name="skill_{{ skill.id }}_qty" min="0">
+      <section>
+        <h2>{{ skill.name }}</h2>
+        <form method="POST" action="{% url 'users:skills_list' %}">
+          {% csrf_token %}
+          <div class="rating-picker">
+            <input type="radio" name="proficiency" id="proficiency_0" value=0>
+            <input type="radio" name="proficiency" id="proficiency_1" value=1>
+            <input type="radio" name="proficiency" id="proficiency_2" value=2>
+            <input type="radio" name="proficiency" id="proficiency_3" value=3>
+            <input type="radio" name="proficiency" id="proficiency_4" value=4>
+          </div>
+          <input type="checkbox" name="skill_{{ skill.id }}_a">
+          <input type="checkbox" name="skill_{{ skill.id }}_b">
+          <input type="number" name="skill_{{ skill.id }}_qty" min="0">
+          <input type="submit" value="Save">
+        </form>
+      </section>
     </li>
+    {% endif %}
     {% endfor %}
   </ul>
   {% endif %}
-  {% for subcategory in category.children.all %}
-  {% include 'users/skills_category.html' with category=subcategory only %}
-  {% endfor %}
 </details>
+{% endif %}
 {% comment %}
 <div class="branch">
   <span class="label">{{ category.name }}</span>

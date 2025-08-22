@@ -1,0 +1,26 @@
+{{ node.skill_entry_forms }}
+{% if node.subcategories or node.skill_entry_forms %}
+<details>
+  <summary>{{ node.category.name }}</summary>  
+  {% for subcategory in node.subcategories %}
+  {{ subcategory }}
+  {% include 'users/skills_tree_node.html' with node=subcategory %}
+  {% endfor %}
+  {% if node.skill_entry_forms %}
+  <ul>
+    {% for name, form in node.skill_entry_forms.items %}
+    <li>
+      <section>
+        <h2>{{ name }}</h2>
+        <form method="POST" action="{% url 'users:skills_list' %}">
+          {% csrf_token %}
+          {{ form }}
+          <input type="submit" value="Save">
+        </form>
+      </section>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</details>
+{% endif %}

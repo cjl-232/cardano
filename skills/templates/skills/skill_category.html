@@ -1,0 +1,20 @@
+{% if node.has_skills %}
+<details>
+  <summary>{{ node.name }}</summary>  
+  {% for subnode in node.subnodes %}
+  {% include 'skills/skill_category.html' with node=subnode %}
+  {% endfor %}
+  {% if node.entry_forms %}
+  <ul>
+    {% for name, form in node.entry_forms.items %}
+    <li>
+      <section>
+        <h2>{{ name }}</h2>
+        {{ form }}
+      </section>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</details>
+{% endif %}

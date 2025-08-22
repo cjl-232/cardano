@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Your Skills{% endblock %}
+{% block content %}
+<form method="POST" action="{% url 'skills:overview' %}">
+  {% csrf_token %}
+  {{ formset.management_form }}
+  {% for node in tree.subnodes %}
+  {% include 'skills/skill_category.html' with node=node only %}
+  {% endfor %}
+  <input type="submit" value="Save Changes">
+</form>
+{% endblock %}

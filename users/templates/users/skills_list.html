@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Your Skills{% endblock %}
+{% block content %}
+<form method="POST" action="{% url 'users:skills_list' %}">
+  {% csrf_token %}
+  {{ formset.management_form }}
+  {% for form in formset %}
+  {{ form }}
+  {% endfor %}
+  <input type="submit" value="Save Changes">
+</form>
+{% endblock %}
+{% comment %}
+{% block content %}
+<section>
+  <h1>Added Skills</h1>
+  {% if added_skill_tree %}
+  {% for node in added_skill_tree.values %}
+  {% include 'users/skills_tree_node.html' with node=node only %}
+  {% endfor %}
+  {% else %}
+  <p>You haven't added any skills yet!</p>
+  {% endif %}
+</section>
+<section>
+  <h1>Other Skills</h1>
+  {% if other_skill_tree %}
+  {% for node in other_skill_tree.values %}
+  {% include 'users/skills_tree_node.html' with node=node only %}
+  {% endfor %}
+  {% else %}
+  <p>You've added every skill available. Congratulations!</p>
+  {% endif %}
+</section>
+{% endblock %}
+{% endcomment %}

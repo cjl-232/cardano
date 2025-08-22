@@ -1,7 +1,8 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, RadioSelect
 
 from .models import Gender, Profile
 from organisation.models import Grade, Profession, Unit
+from skills.models import Skill, SkillEntry
 
 
 class ProfileForm(ModelForm):
@@ -22,3 +23,17 @@ class ProfileForm(ModelForm):
             'years_as_analyst',
             'years_at_current_grade',
         ]
+
+
+class SkillEntryForm(ModelForm):
+    skill: Skill
+
+    class Meta:
+        model = SkillEntry
+        fields = [
+            'proficiency',
+            'used_in_last_six_months',
+        ]
+        widgets = {
+            'proficiency': RadioSelect(),
+        }
