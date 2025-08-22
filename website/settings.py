@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-hqk6^-pj@cpv*xwhdbyp#s-_-8zj2yx(x%zdgvg+x80*d^lpnl
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'localhost',
     'cl232.pythonanywhere.com',
 ]
 
@@ -123,7 +124,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    'static/',
 ]
 
 # Default primary key field type
