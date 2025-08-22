@@ -8,7 +8,7 @@ from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 
 def make_test_user(apps: Apps, _: BaseDatabaseSchemaEditor):
     User = get_user_model()
-    user = User(email='example123@gmail.com')
+    user = User(email='admin@gmail.com')
     user.set_password('password')
     user.is_staff = True
     user.is_superuser = True
