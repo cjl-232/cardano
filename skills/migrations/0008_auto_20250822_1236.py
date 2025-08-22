@@ -11,19 +11,19 @@ def initial_categories(apps: Apps, _: BaseDatabaseSchemaEditor):
     coding = Category.objects.get_or_create(name='Coding')[0]
     interpreted = Category.objects.get_or_create(name='Interpreted Languages', parent=coding)[0]
     compiled = Category.objects.get_or_create(name='Compiled Languages', parent=coding)[0]
-    skill = Skill.objects.get_or_create(name='C++')[0]
+    skill = Skill.objects.get_or_create(name='C++', defaults={'category': compiled})[0]
     skill.category = compiled
     skill.save()
-    skill = Skill.objects.get_or_create(name='C#')[0]
+    skill = Skill.objects.get_or_create(name='C#', defaults={'category': compiled})[0]
     skill.category = compiled
     skill.save()
-    skill = Skill.objects.get_or_create(name='Python')[0]
+    skill = Skill.objects.get_or_create(name='Python', defaults={'category': interpreted})[0]
     skill.category = interpreted
     skill.save()
-    skill = Skill.objects.get_or_create(name='Javascript')[0]
+    skill = Skill.objects.get_or_create(name='Javascript', defaults={'category': interpreted})[0]
     skill.category = interpreted
     skill.save()
-    skill = Skill.objects.get_or_create(name='CSS')[0]
+    skill = Skill.objects.get_or_create(name='CSS', defaults={'category': coding})[0]
     skill.category = coding
     skill.save()
     analysis = Category.objects.get_or_create(name='Analysis')[0]

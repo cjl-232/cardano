@@ -8,6 +8,11 @@ from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 
 def make_test_users(apps: Apps, _: BaseDatabaseSchemaEditor):
     User = get_user_model()
+    admin = User(email='admin@gmail.com')
+    admin.set_password('password')
+    admin.is_staff = True
+    admin.is_superuser = True
+    admin.save()
     for i in range(10):
         user = User(email=f'example{i}@gmail.com')
         user.set_password('password')
@@ -17,7 +22,7 @@ def make_test_users(apps: Apps, _: BaseDatabaseSchemaEditor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0009_remove_user_username'),
+        ('users', '0008_remove_user_username'),
     ]
 
     operations = [
