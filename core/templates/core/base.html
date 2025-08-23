@@ -4,12 +4,12 @@
   <head>
     <meta charset="utf-8">
     <title>{% block title %}Untitled Page{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="{% static 'core/styles.css' %}">
     {% block externals %}
     {% endblock %}
   </head>
   <body>
-    {% include 'header.html' %}
+    {% include 'core/header.html' %}
     <div class="content">
       {% block content %}
       <p>Test Content</p>
